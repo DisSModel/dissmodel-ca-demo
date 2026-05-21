@@ -31,7 +31,7 @@ from dissmodel.visualization.widgets import display_inputs
 # ---------------------------------------------------------------------------
 # Page config
 # ---------------------------------------------------------------------------
-st.set_page_config(page_title="CA Explorer", layout="centered")
+st.set_page_config(page_title="CA Explorer", layout="centered", page_icon="🗺️")
 st.title("Cellular Automata Explorer (dissmodel)")
 
 # ---------------------------------------------------------------------------
@@ -46,22 +46,31 @@ model_classes: dict[str, type] = {
 }
 
 # ---------------------------------------------------------------------------
-# Sidebar
+# Sidebar & Configuration
 # ---------------------------------------------------------------------------
-st.sidebar.title("Parameters")
+st.sidebar.title("Simulation Control")
 
-model_name = st.sidebar.selectbox("Model", list(model_classes.keys()))
+model_name = st.sidebar.selectbox("Select Model", list(model_classes.keys()))
 steps      = st.sidebar.slider("Simulation steps", min_value=1, max_value=1000, value=50)
 grid_size  = st.sidebar.slider("Grid size", min_value=5, max_value=500, value=20)
 cmap_name  = st.sidebar.selectbox(
     "Colormap",
     ["tab10", "viridis", "plasma", "Greens", "Reds", "Blues", "coolwarm"],
 )
-run = st.button("Run Simulation")
+run = st.button("🚀 Run Simulation")
+
+# Get selected class
+ModelClass = model_classes[model_name]
+
+# Display Model Description
+if ModelClass.__doc__:
+    with st.expander("📖 About this model", expanded=True):
+        st.markdown(ModelClass.__doc__)
 
 # ---------------------------------------------------------------------------
 # Setup
-#
+# ---------------------------------------------------------------------------
+
 # Instantiation order matters:
 #   1. Environment    — must exist before any model connects to it
 #   2. Grid           — spatial structure shared between model and map
