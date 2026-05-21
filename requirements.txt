@@ -1,5 +1,5 @@
 dissmodel @ git+https://github.com/DisSModel/dissmodel.git
-dissmodel-ca @ git+https://github.com/DisSModel/dissmodel-ca.git
+dissmodel-ca @ git+https://github.com/DisSModel/dissmodel-ca.git@reorganizing
 streamlit
 matplotlib
 geopandas
